@@ -1,19 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href=" #"><i class ="fa fa-trophy"></i> Awards</a>
+      {% comment %} <a class="navbar-brand" href=" #">
+        {% if request.user.is_authenticated %}
+        <div class="button-container">
+          <a href="/signout" class="btn btn-primary" type="submit">SignOut</a>
+        </div>
+
+        {% else %}
+        <div class="button-container">
+          <a href="/signup" class="btn btn-primary">SignUp</a>
+        </div>
+        <div class="button-container" style="margin-left: 10px;">
+          <a href="/signin" class="btn btn-primary" type="submit">SignIn</a>
+        </div>
+        {% endif %}
+      </a> {% endcomment %}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <a class="nav-link " aria-current="page" href="#"><i class ="fa fa-home"></i> Home</a>
-          {% comment %} {% if request.user.is_authenticated %}
-          <a class="nav-link " aria-current="page" href="#"><i class ="fa fa-user"></i> {{request.user}}</a>
-          <a class="nav-link " aria-current="page" href=" #"><i class ="fa fa-home"></i> Logout</a>
-          {% else %}
-          <a class="nav-link" href=" #"><i class ="fa fa-user"></i> Register</a>
-          <a class="nav-link" href=" #"><i class ="fa fa-sign-in"></i> Login</a>
-          {% endif%} {% endcomment %}
+          <a class="nav-link " aria-current="page" href="/"><i class ="fa fa-home"></i> Home</a>
+          {% if request.user.is_authenticated %}
+          {% comment %} <a class="nav-link " aria-current="page" href="#"><i class ="fa fa-user"></i> {{request.user}}</a> {% endcomment %}
           <a class="nav-link" href=" {% url 'school' %}"><i class ="fa fa-building"></i> School</a>
           <a class="nav-link" href=" {% url 'student' %}"><i class ="fa fa-user"></i> Student</a> 
           <a class="nav-link" href=" {% url 'award' %}"><i class ="fa fa-trophy"></i> Awards</a>
@@ -22,7 +32,12 @@
           <a class="nav-link" href=" {% url 'classes' %}"><i class ="fa fa-collection"></i> classes</a> 
           <a class="nav-link" href=" {% url 'assessment' %}"><i class ="fa fa-graduation-cap"></i> assessment</a>
           <a class="nav-link" href=" {% url 'summary' %}"><i class ="fa fa-file-text"></i> summary</a>
-
+          <a class="nav-link " aria-current="page" href="/signout"><i class ="fa fa-home"></i> Logout</a>
+          {% else %}
+          <a class="nav-link" href=" {% url 'summary' %}"><i class ="fa fa-file-text"></i> summary</a>
+          <a href="/signup" class="nav-link"><i class ="fa fa-user"></i> SignUp</a>
+          <a href="/signin" class="nav-link" type="submit"><i class ="fa fa-sign-in"></i> SignIn</a>
+          {% endif%}
         </div>
       </div>
     </div>

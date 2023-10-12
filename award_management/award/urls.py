@@ -11,4 +11,8 @@ urlpatterns = [
     path('classes/', views.classes, name="classes"),
     path('assessment/', views.assessment, name="assessment"),
     path('summary/', views.summary, name="summary"),
+    path('signup/', views.signup, name="signup"),
+    path('signin/', views.signin, name="signin"),
+    path('signout/', views.signout, name="signout"),
+    path('activate/<str:uid64>/<str:token>/', views.activate, name="activate"),
 ]

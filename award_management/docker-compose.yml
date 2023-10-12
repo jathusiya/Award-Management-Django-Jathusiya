@@ -1,9 +1,11 @@
-version: '3.8'  # Adjust the version as needed
-
+version: "4.2"
 services:
-  web:
-    build:
-      context: C:\Users\hp\Desktop\interview\award_management\award_management
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+ app:
+  build: .
+  volumes:
+   - .:/django
+  ports:
+   - 8000:8000
+  image: app:django
+  container_name: my_first_django_container
+  command: python manage.py runserver 0.0.0.0:8000

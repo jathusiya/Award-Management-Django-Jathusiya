@@ -3,7 +3,7 @@
 .carousel-item img{
     object-fit: cover;
     object-position: top;
-    height: 70vh;
+    height: 80vh;
     overflow: hidden;
 }
 
@@ -49,3 +49,10 @@ a{
     z-index: 10;
     text-align: center;
 }
+
+/* .table {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+} */

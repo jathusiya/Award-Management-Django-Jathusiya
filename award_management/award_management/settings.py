@@ -11,10 +11,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from . info import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,6 +32,7 @@ SECRET_KEY = 'django-insecure-c5+p0==ee=kobvp_!k+=&$j(#p*_d*&hk4y0ho0t%-27558z0!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# AUTH_USER_MODEL = 'award.CustomUser'
 
 
 # Application definition
@@ -77,7 +84,7 @@ WSGI_APPLICATION = 'award_management.wsgi.application'
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'studentAward',
+        'NAME': 'studentaward',
         'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': 'mysql123',
@@ -104,7 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -128,6 +137,11 @@ MEDIA_ROOT = BASE_DIR/'static'
 STATICFILES_DIRS = [
     BASE_DIR/'static'
 ]
+
+# settings.py
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# WHITENOISE_MIDDLEWARE_SECONDS = 60 * 60   # 30 days
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

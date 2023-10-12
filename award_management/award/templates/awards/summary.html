@@ -1,21 +1,19 @@
 <!-- interview_app/templates/school_list.html -->
 {% extends 'awards/layouts/main.html' %}
 {% block title %}
-Subject
+Summary
 {% endblock title %}
 {% block content %}
-<section class="bg-light py-4 my-5" style="min-height:600px;">
+<section class="bg-light py-4 my-5" style="display: flex;">
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h4 class="mb-3">Subject_List</h4>
+          <h4 class="mb-3">Summary</h4>
           <hr style="border-color:#b8bfc2;">
         </div>
-      
-        <table class="table table-bordered" style=" display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Adjust column width as needed */
-        gap: 10px;">
-          <tr>
+        <div class="table-container" style="justify-content: center;">
+          <table class="table table-bordered" id="myTable">   
+          <thead><tr>
               <th>Id</th>
               <th>School Id</th>
               <th>Sydney Participant</th>
@@ -31,31 +29,102 @@ Subject
               <th>Subject Id</th>
               <th>Year Level Name</th>
               <th>Answer Id</th>
-              <th>Action</th>
           </tr>
-        
+        </thead>
+        <tbody>
+          {% if request.user.is_authenticated %}
           {% for item in summary %}
           <tr>
               <td>{{ item.id }}</td>
-              <td>{{ item.school_name}}</td>
+              <td><a href="{% url 'school' %}">"{{ item.school_name}}</td>
               <td>{{ item.sydney_participant }}</td>
               <td>{{ item.sydney_percentile }}</td>
-              <td>{{ item.assessment_name}}</td>
-              <td>{{ item.award}}</td>
-              <td>{{ item.classes}}</td>
+              <td><a href="{% url 'assessment' %}">{{ item.assessment_areas}}</a></td>
+              <td><a href="{% url 'award' %}">{{ item.award}}</a></td>
+              <td><a href="{% url 'classes' %}">{{ item.classes}}</a></td>
               <td>{{ item.correct_answer_percentage_per_class }}</td>
               <td>{{ item.correct_answer }}</td>
-              <td>{{ item.studentId}}</td>
+              <td><a href="{% url 'student' %}">{{ item.student_id}}</a></td>
               <td>{{ item.participant }}</td>
               <td>{{ item.student_score }}</td>
-              <td>{{ item.subject}}</td>
+              <td><a href="{% url 'subject' %}">{{ item.subject}}</a></td>
               <td>{{ item.year_level_name }}</td>
-              <td>{{ item.answer}}</td>
+              <td><a href="{% url 'answer' %}">{{ item.answer}}</a></td>
           </tr>
           {% endfor %}
+          {% else %}
+          {% for item in summary %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td><a href="{% url 'signin' %}">"{{ item.school_name}}</td>
+            <td>{{ item.sydney_participant }}</td>
+            <td>{{ item.sydney_percentile }}</td>
+            <td><a href="{% url 'signin' %}">{{ item.assessment_areas}}</a></td>
+            <td><a href="{% url 'signin' %}">{{ item.award}}</a></td>
+            <td><a href="{% url 'signin' %}">{{ item.classes}}</a></td>
+            <td>{{ item.correct_answer_percentage_per_class }}</td>
+            <td>{{ item.correct_answer }}</td>
+            <td><a href="{% url 'signin' %}">{{ item.student_id}}</a></td>
+            <td>{{ item.participant }}</td>
+            <td>{{ item.student_score }}</td>
+            <td><a href="{% url 'signin' %}">{{ item.subject}}</a></td>
+            <td>{{ item.year_level_name }}</td>
+            <td><a href="{% url 'signin' %}">{{ item.answer}}</a></td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+        </tbody>
       </table>
+    </div>
+    <div class="button-container" style="text-align: center">
+      <button class="btn btn-primary" onclick="showPreviousRows()">Previous</button>
+      <button class="btn btn-primary" onclick="showNextRows()">Next</button>
+  </div>
+    <script>
+        var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+        var rowsPerPage = 10;
+        var currentPage = 1;
+
+        function showNextRows() {
+            var rows = table.rows;
+            var totalRows = rows.length;
+            var maxPage = Math.ceil(totalRows / rowsPerPage);
+
+            if (currentPage < maxPage) {
+                var start = (currentPage - 1) * rowsPerPage;
+                var end = start + rowsPerPage;
+
+                for (var i = 0; i < totalRows; i++) {
+                    if (i >= start && i < end) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+
+                currentPage++;
+            }
+        }
+
+        function showPreviousRows() {
+          if (currentPage > 1) {
+              currentPage--;
+              var start = (currentPage - 1) * rowsPerPage;
+              var end = currentPage * rowsPerPage;
       
-        </div>
+              for (var i = 0; i < totalRows; i++) {
+                  if (i >= start && i < end) {
+                      rows[i].style.display = "";
+                  } else {
+                      rows[i].style.display = "none";
+                  }
+              }
+          }
+      }     
+        // Initial page load
+        showNextRows();
+    </script>
+    </div>
     </div>
    </section>
 {% endblock content %}

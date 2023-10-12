@@ -4,17 +4,15 @@
 Class
 {% endblock title %}
 {% block content %}
-<section class="bg-light py-4 my-5" style="min-height:600px;">
+<section class="bg-light py-4 my-5" style="display:flex;">
     <div class="container">
       <div class="row">
         <div class="col-12">
           <h4 class="mb-3">Class_List</h4>
           <hr style="border-color:#b8bfc2;">
         </div>
-      
-        <table class="table table-bordered" style=" display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Adjust column width as needed */
-        gap: 10px;">
+        <div class="table-container" style="display: flex; justify-content: center;">
+        <table class="table table-bordered" style="width: 50%; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">     
             <tr>
                 <th>Id</th>
                 <th>Class</th>
@@ -28,6 +26,26 @@ Class
             {% endfor %}
 
           </table>
+        </div>
+        <div class="table-container" style="display: flex; justify-content: center;">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="{% url 'school' %}">1</a></li>
+              <li class="page-item"><a class="page-link" href="{% url 'student' %}">2</a></li>
+              <li class="page-item"><a class="page-link" href="{% url 'award' %}">3</a></li>
+              <li class="page-item"><a class="page-link" href="{% url 'answer' %}">4</a></li>
+              <li class="page-item"><a class="page-link" href="{% url 'subject' %}">5</a></li>
+              <li class="page-item"><a class="page-link" href="{% url 'classes' %}">6</a></li>
+              <li class="page-item"><a class="page-link" href="{% url 'assessment' %}">7</a></li>
+              <li class="page-item">
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
     </div>
    </section>
